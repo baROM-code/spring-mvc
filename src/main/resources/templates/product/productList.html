@@ -7,13 +7,14 @@
 </head>
 
 <body>
-    <table>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.id}">1</td>
-            <td th:text="${product.title}">Test</td>
-            <td th:text="${product.price}">100</td>
-        </tr>
-    </table>
+<h2>Products:</h2>
+<table>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.id}">1</td>
+        <td th:text="${product.title}">Test</td>
+        <td th:text="${product.price}">100</td>
+    </tr>
+</table>
 </body>
 
 </html>

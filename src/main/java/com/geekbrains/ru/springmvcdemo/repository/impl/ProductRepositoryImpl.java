@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 
+    private List<Product> products;
+
     @Override
     public Product get(Long id) {
         return Product.builder()
@@ -20,7 +22,15 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> findAll() {
-        return List.of(get(1L), get(2L), get(3L));
+        return products;
+    }
+
+    @Override
+    public void add(Product product) {
+        System.out.println(product);
+
+        products.add(Product.builder().build());
+        System.out.println(products);
     }
 
 }
