@@ -29,7 +29,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     public void add(Product product) {
         System.out.println(product);
 
-        products.add(Product.builder().build());
+        // Выдает ошибку в этом месте !!!
+        products.add(product);
         System.out.println(products);
     }
 
