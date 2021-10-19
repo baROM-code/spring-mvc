@@ -19,10 +19,8 @@ public class ProductController {
     //http://localhost:8080/product?page_num=1&size=20
     //http://localhost:8080/product?size=20
     public ModelAndView getProducts() {
-
         ModelAndView modelAndView = new ModelAndView("product/productList");
         modelAndView.addObject("products", productService.getProducts());
-
         return modelAndView;
     }
 
@@ -37,14 +35,8 @@ public class ProductController {
     public String Submit(@ModelAttribute Product product, Model model) {
         model.addAttribute("product", product);
         productService.addProduct(product);
-        return "product/productlist";
+        return "product/info1";
     }
-    /*
-    public String create(Product product) {
-        productService.addProduct(product);
-        return "product/productlist";
-    }
-     */
 
 //    @GetMapping("/{productId}")
 //    //http://localhost:8080/product/1
@@ -52,7 +44,6 @@ public class ProductController {
 //    public ModelAndView getProduct(@PathVariable Long productId) {
 //        ModelAndView modelAndView = new ModelAndView("product/product");
 //        modelAndView.addObject("product", productService.getProduct(productId));
-//
 //        return modelAndView;
 //    }
 
