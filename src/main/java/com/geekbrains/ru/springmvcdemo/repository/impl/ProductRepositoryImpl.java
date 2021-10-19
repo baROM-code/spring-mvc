@@ -4,10 +4,13 @@ import com.geekbrains.ru.springmvcdemo.domain.Product;
 import com.geekbrains.ru.springmvcdemo.repository.ProductRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
+
+    private List<Product> products = new ArrayList<>();
 
     @Override
     public Product get(Long id) {
@@ -20,7 +23,12 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> findAll() {
-        return List.of(get(1L), get(2L), get(3L));
+        return products;
+    }
+
+    @Override
+    public void add(Product product) {
+        products.add(product);
     }
 
 }

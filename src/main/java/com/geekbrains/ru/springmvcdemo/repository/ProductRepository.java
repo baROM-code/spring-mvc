@@ -10,4 +10,6 @@ public interface ProductRepository {
 
     List<Product> findAll();
 
+
+    void add(Product product);
 }
