@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,19 +26,29 @@ public class ProductController {
         return modelAndView;
     }
 
+    @PostMapping
+    public RedirectView saveProduct(@ModelAttribute Product product,
+                                    @RequestParam(required = false) MultipartFile image) {
+        productService.saveProductWithImage(product, image);
+        return new RedirectView("/product");
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String getForm(Model model) {
-        // Product product = new Product();
         model.addAttribute("product", new Product());
         return "product/productAdd";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String Submit(@ModelAttribute Product product, Model model) {
+    public String Submit(@ModelAttribute Product product,
+                         @RequestParam(required = false) MultipartFile image,
+                         Model model) {
         model.addAttribute("product", product);
-        productService.addProduct(product);
+        //productService.addProduct(product);
+        productService.saveProductWithImage(product, image);
         return "product/info1";
     }
+
 
 //    @GetMapping("/{productId}")
 //    //http://localhost:8080/product/1
