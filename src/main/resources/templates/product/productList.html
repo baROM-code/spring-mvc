@@ -2,37 +2,35 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <title>Good Thymes Virtual Grocery</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Products List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 
-<body>
-<h2>Products:</h2>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-        <td>id</td>
-        <td>Title</td>
-        <td>Description</td>
-        <td>Price</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr th:each="product : ${products}">
-        <td th:text="${product.id}"> </td>
-        <td th:text="${product.title}"> </td>
-        <td th:text="${product.description}"> </td>
-        <td th:text="${product.price}"> </td>
-    </tr>
-  </tbody>
-</table>
+<body>
+    <div class="container">
+        <div th:replace="~{fragment/header::header}"></div>
+
+        <h1>Список продуктов</h1>
+
+        <div class="container">
+            <div class="row row-cols-auto mt-5 mb-5">
+                <div th:each="product : ${products}" class="card col me-2" style="width: 18rem;">
+                    <img th:src="${product.imageLink}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 th:text="${product.title}" class="card-title">Product title</h5>
+                        <p th:text="${product.description}" class="card-text">Description</p>
+                        <small th:text="${'Цена: ' + product.price + ' руб.'}" class="mb-5">Price</small>
+                        <div class="justify-content mt-3">
+                            <a href="#" class="btn btn-primary mb-2">Перейти</a>
+                            <a href="#" class="btn btn-success">Добавить в корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
