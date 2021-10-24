@@ -4,11 +4,15 @@ import com.geekbrains.ru.springmvcdemo.domain.Product;
 
 import java.util.List;
 
-public interface ProductRepository {
+public interface ProductDao {
 
-    Product get(Long id);
+    Product findById(Long id);
 
     List<Product> findAll();
+
+    void deleteById(Long id);
+
+    Product saveOrUpdate(Product product);
 
     void add(Product product);
 }
