@@ -50,22 +50,41 @@ public class ProductController {
     }
 
 
-//    @GetMapping("/{productId}")
-//    //http://localhost:8080/product/1
-//    //http://localhost:8080/product/2
-//    public ModelAndView getProduct(@PathVariable Long productId) {
-//        ModelAndView modelAndView = new ModelAndView("product/product");
-//        modelAndView.addObject("product", productService.getProduct(productId));
-//        return modelAndView;
-//    }
+    @GetMapping("/{productId}")
+    //http://localhost:8080/product/1
+    //http://localhost:8080/product/2
+    public ModelAndView getProduct(@PathVariable Long productId) {
+        ModelAndView modelAndView = new ModelAndView("product/productList");
+        modelAndView.addObject("products", productService.getProduct(productId));
+        return modelAndView;
+    }
 
-//    @GetMapping
-//    public String getProducts(Model model) {
-//        model.addAttribute("products", productService.getProducts());
-//
-//        return "product/productList";
+    @GetMapping("/delete/{productId}")
+    public ModelAndView delProduct(@PathVariable Long productId) {
+        productService.del(productId);
+        ModelAndView modelAndView = new ModelAndView("product/productList");
+        modelAndView.addObject("products", productService.getProducts());
+        return modelAndView;
+    }
 
-//    }
+    // сортировка от меньшей цены к большей
+    @GetMapping("/minmax")
+    public ModelAndView minSort() {
+        ModelAndView modelAndView = new ModelAndView("product/productListMy");
+        modelAndView.addObject("products", productService.minSort());
+        return modelAndView;
+    }
 
+    @GetMapping("/query")
+    // http://localhost:8080/product/query?min=
+    // http://localhost:8080/product/query?max=
+    // http://localhost:8080/product/query?min= &max=
+    public ModelAndView Query(@RequestParam(required = false, defaultValue = "-1") int min, @RequestParam(required = false, defaultValue = "-1") int max) {
+        ModelAndView modelAndView = new ModelAndView("product/productListMy");
+        if (min != -1) {modelAndView.addObject("products", productService.GreaterThan(min));}
+        if (max != -1) {modelAndView.addObject("products", productService.LessThan(max));}
+        if (min != -1 && max != -1) {modelAndView.addObject("products", productService.Between(min, max));}
+        return modelAndView;
+    }
 
 }
