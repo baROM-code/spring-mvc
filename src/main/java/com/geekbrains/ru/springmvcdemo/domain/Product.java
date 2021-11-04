@@ -1,72 +1,60 @@
 package com.geekbrains.ru.springmvcdemo.domain;
 
+
 import lombok.*;
+import org.hibernate.Hibernate;
+
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
-@Data
+
+@Getter
+@Setter
 @Builder
+@Entity
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-
-@Entity
-@Table(name = "products")
 public class Product {
-
-    // private Category category;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Имя продукта обязательно")
     private String title;
     private String description;
-    private String imagelink;
-    private int price;
 
-    public Product(String title, String description, int price) {
-        this.title = title;
-        this.description = description;
-        this.price = price;
+    @NotNull(message = "Цена продукта обязательна")
+    private Integer price;
+
+    @Column(name = "image_link")
+    private String imageLink;
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    @ToString.Exclude
+    private Set<Category> categories = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Product product = (Product) o;
+        return id != null && Objects.equals(id, product.id);
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImageLink() {
-        return imagelink;
-    }
-
-    public void setImageLink(String imagelink) {
-        this.imagelink = imagelink;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

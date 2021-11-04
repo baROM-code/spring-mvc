@@ -1,5 +1,6 @@
 package com.geekbrains.ru.springmvcdemo.service;
 
+import com.geekbrains.ru.springmvcdemo.domain.Category;
 import com.geekbrains.ru.springmvcdemo.domain.Product;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,8 +15,6 @@ public interface ProductService {
 
     void saveProductWithImage(Product product, MultipartFile image);
 
-    Product getProduct(Long id);
-
     void del(Long productId);
 
     List<Product> minSort();
@@ -25,4 +24,8 @@ public interface ProductService {
     List<Product> LessThan(int max);
 
     List<Product> Between(int min, int max);
+
+    List<Product> CategoryIs (Category category);
+
+    Product findById(Long id);
 }
