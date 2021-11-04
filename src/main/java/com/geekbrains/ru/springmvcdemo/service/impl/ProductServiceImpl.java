@@ -1,5 +1,6 @@
 package com.geekbrains.ru.springmvcdemo.service.impl;
 
+import com.geekbrains.ru.springmvcdemo.domain.Category;
 import com.geekbrains.ru.springmvcdemo.domain.Product;
 import com.geekbrains.ru.springmvcdemo.repository.ProductRepository;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProduct(Long id) {
+    public Product findById(Long id) {
         return productRepository.findById(id).get();
     }
 
@@ -69,6 +71,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> Between(int min, int max) {
         return productRepository.findByPriceBetween(min, max);
+    }
+
+    @Override
+    public List<Product> CategoryIs(Category category) {
+        return productRepository.findByCategoriesIs(category);
     }
 
 }
