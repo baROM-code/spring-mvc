@@ -4,6 +4,8 @@ import com.geekbrains.ru.springmvcdemo.domain.Product;
 import com.geekbrains.ru.springmvcdemo.service.CategoryService;
 import com.geekbrains.ru.springmvcdemo.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -116,6 +119,41 @@ public class ProductController {
             modelAndView.addObject("products", productService.Between(min, max));
         }
         return modelAndView;
+    }
+
+    // REST controller - в отдельный класс не стал выносить
+
+    @RequestMapping("/rest/product")
+    @RestController
+    public class RestProductController {
+
+        private ProductService productService;
+
+        @Autowired
+        public void setProductService(ProductService productService) {
+            this.productService = productService;
+        }
+
+        @GetMapping
+        public List<Product> getAllProducts() {
+            return productService.getProducts();
+        }
+
+        @GetMapping("/{id}")
+        public Product getProductById(@PathVariable Long id) {
+            return productService.findById(id);
+        }
+
+        @DeleteMapping("/{id}")
+        public int deleteProduct(@PathVariable Long id) {
+            productService.del(id);
+            return HttpStatus.OK.value();
+        }
+
+        @PostMapping
+        public void addProduct(@RequestBody Product product) {
+            productService.saveProductWithImage(product, null);
+        }
     }
 
 }
