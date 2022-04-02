@@ -3,6 +3,7 @@ package com.geekbrains.ru.springmvcdemo.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+// @RedisHash("category") - так не работает, ошибка: IS_NULL (0): [IsNull, Null] is not supported for Redis query derivation!
 public class Category {
 
     @Id
