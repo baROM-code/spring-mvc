@@ -16,6 +16,7 @@ public class SpringMvcDemo2Application {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SpringMvcDemo2Application.class, args);
 
+        /*
         ProductService productService = context.getBean(ProductService.class);
         Product product = Product.builder()
                 .description("Test Build")
@@ -24,6 +25,8 @@ public class SpringMvcDemo2Application {
                 .build();
         product.setId(77L);
         productService.addProduct(product);
+
+         */
     }
 
 }

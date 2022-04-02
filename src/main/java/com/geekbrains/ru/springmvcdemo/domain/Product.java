@@ -3,6 +3,7 @@ package com.geekbrains.ru.springmvcdemo.domain;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.data.redis.core.RedisHash;
 
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ import java.util.Set;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@RedisHash("product")
 public class Product {
 
     @Id
